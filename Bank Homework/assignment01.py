@@ -54,8 +54,33 @@ class Bank():
             return f'{user} canceled its {self.name} savings account'
         return f'Error: {user} is not a client of {self.name} bank'
 
-    def report(self):
-        return False
+    def report(self, lt = None, gt = None):
+        if not lt:
+            print('----------------------------------')
+            print(f'| * {self.name} bank savings accounts * |')
+            print('----------------------------------')
+            print('| Client             | Balance   |')
+            totalMoney = 0
+            if lt:
+                for userInfo in self.clients:
+                    if userInfo[1] < lt:
+                        print(f'| {userInfo[0]}            | $   {userInfo[1]} |')
+                        totalMoney += userInfo[1]
+                print('----------------------------------')
+                print(f'|              Total | $   {totalMoney} |')
+                print('----------------------------------')
+
+            if gt:
+                for userInfo in self.clients:
+                    if userInfo[1] > gt:
+                        print(f'| {userInfo[0]}            | $   {userInfo[1]} |')
+                        totalMoney += userInfo[1]
+                print('----------------------------------')
+                print(f'|              Total | $   {totalMoney} |')
+                print('----------------------------------')
+        
+        
+        
     
     def cancel_clients(self, clientsList):
         return True
