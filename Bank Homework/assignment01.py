@@ -17,6 +17,7 @@ class Bank():
     def __init__(self,name = 'Unnamed'):
         self.name = name
         self.clients = []
+        self.noname = 1
     def __repr__(self):
         return  f"bank: {self.name}, clients:{self.clients}"
     
@@ -24,69 +25,115 @@ class Bank():
     def deposit(self, user = None, amount = 200):
 
         if not user:
-            clientNumber = len(self.clients) + 1
+            clientNumber = self.noname
             user = 'client'+ str(clientNumber)
-        self.clients = self.clients.append((user,amount))
-        
-    def consult(self, user):
+            self.noname += 1
+        self.clients.append((user,amount))
 
-        userList = list(list(zip(self.clients)[0]))
-        if user in userList:
-            return f'{user} has {self.amount} in its {self.name} savings account'
-        
-        return f'Error: {user} is not a client of {self.name} bank'
+
+def consult(self, user):
     
-    def withdraw(self,user,amount):
-        userList = list(list(zip(self.clients)[0]))
-        if user in userList:
-            index = userList.index(user)
-            self.clients[index][1] -= amount
+    # userList = list(list(zip(self.clients)[0]))
+    for name, money in self.clients:
+        if user == name:
+            return f'{user} has {money} in its {self.name} savings account'
+
+    return print(f'Error: {user} is not a client of {self.name} bank')
+    
+def withdraw(self,user,amount):
+    for name, money in self.clients:
+        if user == name:
+            index = self.clients.index((user,money))
+            self.clients[index] = (user, money - amount)
             return f'{user} withdrew 50 from its {self.name} savings account'
+    return print(f'Error: {user} is not a client of {self.name} bank')
+    
 
-        return f'Error: {user} is not a client of {self.name} bank'
-# add some additional functions ...
+def cancel(self,user):
 
-    def cancel(self,user):
-        userList = list(list(zip(self.clients)[0]))
-        if user in userList:
-            index = userList.index(user)
-            del self.clients[index]
-            return f'{user} canceled its {self.name} savings account'
-        return f'Error: {user} is not a client of {self.name} bank'
-
-    def report(self, lt = None, gt = None):
-        if not lt:
-            print('----------------------------------')
-            print(f'| * {self.name} bank savings accounts * |')
-            print('----------------------------------')
-            print('| Client             | Balance   |')
-            totalMoney = 0
-            if lt:
-                for userInfo in self.clients:
-                    if userInfo[1] < lt:
-                        print(f'| {userInfo[0]}            | $   {userInfo[1]} |')
-                        totalMoney += userInfo[1]
-                print('----------------------------------')
-                print(f'|              Total | $   {totalMoney} |')
-                print('----------------------------------')
-
-            if gt:
-                for userInfo in self.clients:
-                    if userInfo[1] > gt:
-                        print(f'| {userInfo[0]}            | $   {userInfo[1]} |')
-                        totalMoney += userInfo[1]
-                print('----------------------------------')
-                print(f'|              Total | $   {totalMoney} |')
-                print('----------------------------------')
+    for name, money in self.clients:
         
+        if user == name:
+            self.clients.remove((name, money))
+            return print(f'{user} canceled its {self.name} savings account')
         
+    return print(f'Error: {user} is not a client of {self.name} bank')
+
+def report(self, lt = None, gt = None, clients = None ):
+
+    print('----------------------------------')
+    print(f'| * {self.name} bank savings accounts * |')
+    print('----------------------------------')
+    print('| Client             | Balance   |')
+    print('----------------------------------')
+    totalMoney = 0
+
+    if not lt and not gt and not clients:
+        for name, money in self.clients:
+            print(f'| {name}            | $   {money} |')
+            print('----------------------------------')
+            totalMoney += money
+        
+    if lt:
+        for name, money in self.clients:
+            if money < lt:
+                print(f'| {name}            | $   {money} |')
+                print('----------------------------------')
+                totalMoney += money
+
+    if gt:
+        for name, money in self.clients:
+            if money > gt:
+                print(f'| {name}            | $   {money} |')
+                print('----------------------------------')
+                totalMoney += money
+
+    if clients:
+        for name, money in self.clients:
+            for client in clients:
+                if name == client:
+                    print(f'| {name}            | $   {money} |')
+                    print('----------------------------------')
+                    totalMoney += money
+
+    print(f'|              Total | $   {totalMoney} |')
+    print('----------------------------------')
+    
+    
         
     
-    def cancel_clients(self, clientsList):
-        return True
-    
-    def add_clients(self, clientsList):
-        return 4
+def cancel_clients(self, clientsList):
+    for client in clientsList:
+        cancel(self,client)
+
+def add_clients(self, clientsList):
+
+    deposit = 0
+    newClients = 0
+
+    for clientInfo in clientsList:
+
+        if type(clientInfo) == int:
+            clientNumber = self.noname
+            userName = 'client'+ str(clientNumber)
+            self.noname += 1
+            self.clients.append((userName,clientInfo))
+            newClients += 1
+        
+        elif type(clientInfo) == tuple:
+
+            nameList = list(filter( lambda x: clientInfo[0] in x, self.clients ))
+            if len(nameList) != 0:
+                index = self.clients.index(nameList[0])
+                self.clients[index] = (nameList[0][0], nameList[0][1] + clientInfo[1])
+                deposit += 1
+            else:
+                self.clients.append(clientInfo)
+                newClients += 1
+
+    return print(f'Added {newClients} new clients and {deposit} deposit to {self.name} bank')
+
+
 def main():
     # create an unnamed bank
     b1 = Bank()
