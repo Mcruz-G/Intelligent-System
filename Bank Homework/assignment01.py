@@ -2,8 +2,8 @@
 
    the assignment 1 of the CS4000 Intelligent Systems course
    
-   Date: August .., 2019
-   Authors: A0... ... Campus: ...
+   Date: August 19, 2019
+   Authors: A01037093 Campus: MTY
             A0... ... Campus: ...
 """
 
