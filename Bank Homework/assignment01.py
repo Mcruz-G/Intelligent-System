@@ -35,16 +35,18 @@ def consult(self, user):
     
     for name, money in self.clients:
         if user == name:
-            return f'{user} has {money} in its {self.name} savings account'
+            return print(f'{user} has {money} in its {self.name} savings account')
 
     return print(f'Error: {user} is not a client of {self.name} bank')
     
 def withdraw(self,user,amount):
+
     for name, money in self.clients:
         if user == name:
             index = self.clients.index((user,money))
             self.clients[index] = (user, money - amount)
-            return f'{user} withdrew 50 from its {self.name} savings account'
+            return print(f'{user} withdrew {amount} from its {self.name} savings account')
+
     return print(f'Error: {user} is not a client of {self.name} bank')
     
 
@@ -59,6 +61,12 @@ def cancel(self,user):
     return print(f'Error: {user} is not a client of {self.name} bank')
 
 def report(self, lt = None, gt = None, clients = None ):
+    
+    if clients:
+        for client in clients:
+            nameList = list(filter( lambda x: client in x, self.clients ))
+            if len(nameList) == 0:
+                print(f'Error: {client} is not a client of {self.name} bank')
 
     print('----------------------------------')
     print(f'| * {self.name} bank savings accounts * |')
@@ -88,12 +96,13 @@ def report(self, lt = None, gt = None, clients = None ):
                 totalMoney += money
 
     if clients:
-        for name, money in self.clients:
-            for client in clients:
+        for client in clients:
+            for name, money in self.clients:
                 if name == client:
                     print(f'| {name}            | $   {money} |')
                     print('----------------------------------')
                     totalMoney += money
+            
 
     print(f'|              Total | $   {totalMoney} |')
     print('----------------------------------')
