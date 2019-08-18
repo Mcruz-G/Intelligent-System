@@ -33,7 +33,6 @@ class Bank():
 
 def consult(self, user):
     
-    # userList = list(list(zip(self.clients)[0]))
     for name, money in self.clients:
         if user == name:
             return f'{user} has {money} in its {self.name} savings account'
