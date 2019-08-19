@@ -139,7 +139,7 @@ def add_clients(self, clientsList):
                 self.clients.append(clientInfo)
                 newClients += 1
 
-    return print(f'Added {newClients} new clients and {deposit} deposit to {self.name} bank\n '), print(self)
+    return print(f'Added {newClients} new clients and {deposit} deposit to {self.name} bank'), print(self)
 
 
 def main():
