@@ -30,7 +30,7 @@ class Bank():
                 if client == user:
                     index = self.clients.index((client, money))
                     self.clients[index] = ( client, money + amount)
-                    
+                    return None
             self.clients.append((user, amount))
 
 def consult(self, user):
