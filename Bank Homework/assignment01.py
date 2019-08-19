@@ -78,21 +78,21 @@ def report(self, lt = None, gt = None, clients = None ):
     if not lt and not gt and not clients:
         for name, money in self.clients:
             print(f'| {name}            | $   {money} |')
-            print('----------------------------------')
+            
             totalMoney += money
         
     if lt:
         for name, money in self.clients:
             if money < lt:
                 print(f'| {name}            | $   {money} |')
-                print('----------------------------------')
+                
                 totalMoney += money
 
     if gt:
         for name, money in self.clients:
             if money > gt:
                 print(f'| {name}            | $   {money} |')
-                print('----------------------------------')
+                
                 totalMoney += money
 
     if clients:
@@ -100,10 +100,10 @@ def report(self, lt = None, gt = None, clients = None ):
             for name, money in self.clients:
                 if name == client:
                     print(f'| {name}            | $   {money} |')
-                    print('----------------------------------')
+                    
                     totalMoney += money
             
-
+    print('----------------------------------')
     print(f'|              Total | $   {totalMoney} |')
     print('----------------------------------')
     
@@ -139,7 +139,7 @@ def add_clients(self, clientsList):
                 self.clients.append(clientInfo)
                 newClients += 1
 
-    return print(f'Added {newClients} new clients and {deposit} deposit to {self.name} bank')
+    return print(f'Added {newClients} new clients and {deposit} deposit to {self.name} bank\n '), print(self)
 
 
 def main():
