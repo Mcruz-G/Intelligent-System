@@ -21,15 +21,17 @@ class Bank():
     def __repr__(self):
         return  f"bank: {self.name}, clients:{self.clients}"
     
-    
-    def deposit(self, user = None, amount = 200):
 
-        if not user:
-            clientNumber = self.noname
-            user = 'client'+ str(clientNumber)
-            self.noname += 1
-        self.clients.append((user,amount))
-
+    def deposit( self, user = None, amount = 200):
+            if not user:
+                user = 'client' + str(self.noname)
+                self.noname += 1
+            for client, money in self.clients:
+                if client == user:
+                    index = self.clients.index((client, money))
+                    self.clients[index] = ( client, money + amount)
+                    
+            self.clients.append((user, amount))
 
 def consult(self, user):
     
@@ -162,7 +164,6 @@ def add_clients(self, clientsList):
                 newClients += 1
 
     return print(f'Added {newClients} new clients and {deposit} deposit to {self.name} bank'), print(self)
-
 
 def main():
     # create an unnamed bank
