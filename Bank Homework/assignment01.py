@@ -66,7 +66,7 @@ def report(self, lt = None, gt = None, clients = None ):
         for client in clients:
             nameList = list(filter( lambda x: client in x, self.clients ))
             if len(nameList) == 0:
-                print(f'Error: {client} is not a client of {self.name} bank')
+                return print(f'Error: {client} is not a client of {self.name} bank')
 
     print('----------------------------------')
     print(f'| * {self.name} bank savings accounts * |')
