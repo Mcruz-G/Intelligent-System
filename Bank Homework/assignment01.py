@@ -77,37 +77,59 @@ def report(self, lt = None, gt = None, clients = None ):
 
     if not lt and not gt and not clients:
         for name, money in self.clients:
-            print(f'| {name}            | $   {money} |')
-            
+            namechars = 19 - len(name)
+            spaces1 = " " * namechars
+            moneychars = 7 - len(str(money))
+            if money < 1000:
+                moneychars += 1
+            spaces2 = " " * moneychars
+            print(f"| {name}{spaces1}| ${spaces2}{money:,} |")
+            print("----------------------------------")
             totalMoney += money
-        
+
     if lt:
         for name, money in self.clients:
             if money < lt:
-                print(f'| {name}            | $   {money} |')
-                
+                namechars = 19 - len(name)
+                spaces1 = " " * namechars
+                moneychars = 7 - len(str(money))
+                if money < 1000:
+                    moneychars += 1
+                spaces2 = " " * moneychars
+                print(f"| {name}{spaces1}| ${spaces2}{money:,} |")
+                print("----------------------------------")
                 totalMoney += money
 
     if gt:
         for name, money in self.clients:
             if money > gt:
-                print(f'| {name}            | $   {money} |')
-                
+                namechars = 19 - len(name)
+                spaces1 = " " * namechars
+                moneychars = 7 - len(str(money))
+                if money < 1000:
+                    moneychars += 1
+                spaces2 = " " * moneychars
+                print(f"| {name}{spaces1}| ${spaces2}{money:,} |")
+                print("----------------------------------")
                 totalMoney += money
 
     if clients:
         for client in clients:
             for name, money in self.clients:
                 if name == client:
-                    print(f'| {name}            | $   {money} |')
-                    
+                    namechars = 19 - len(name)
+                    spaces1 = " " * namechars
+                    moneychars = 7 - len(str(money))
+                    if money < 1000:
+                        moneychars += 1
+                    spaces2 = " " * moneychars
+                    print(f"| {name}{spaces1}| ${spaces2}{money:,} |")
+                    print("----------------------------------")
                     totalMoney += money
-            
-    print('----------------------------------')
-    print(f'|              Total | $   {totalMoney} |')
-    print('----------------------------------')
-    
-    
+
+
+    print(f'|              Total | $   {totalMoney:,} |')
+    print('----------------------------------')    
         
     
 def cancel_clients(self, clientsList):
